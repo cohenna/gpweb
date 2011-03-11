@@ -1,9 +1,6 @@
 <?php
 	require_once 'util.php';
 	require_once 'gp-api.php';
-	#session_start();
-	#$_SESSION['username'] = '';
-	#$_SESSION['pwhash'] = '';
 ?>
 <!DOCTYPE html>
 <html>
@@ -40,7 +37,6 @@
 			<input type="password" name="password" value=""/> 
 		</div> 
 	</fieldset> 
-	<!--<a class="whiteButton" type="submit" onclick="javascript:this.form.submit();">Login</a> -->
 	<input type="submit" class="whiteButton" value="Login" />
 </form> 
 <?php } else {
@@ -70,7 +66,6 @@
 			<textarea name="response"></textarea>
 		</div> 
 	</fieldset> 
-	<!--<a class="whiteButton" type="submit" onclick="javascript:this.form.submit();">Login</a> -->
 	<input type="submit" class="whiteButton" value="Submit" />
 </form> 
 </div>

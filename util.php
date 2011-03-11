@@ -4,7 +4,6 @@
 	
 	function logged_in() {
 		session_start();
-		#echo '['.$_SESSION['username'].']<BR>';
 		return !empty($_SESSION['username']);
 	}
 	
@@ -32,7 +31,6 @@
 			$level = $post['Level'];
 			$class = $read ? 'whiteButton' : 'redButton';
 			echo "<li><a class=\"$class\" href=\"/post.php?postid=$postID\">";
-			#for($i=0;$i<$level;$i++) { echo "&nbsp;&nbsp;&nbsp;"; }
 			echo "$subject <i>by $author</i></a></li>
 				";
 		}
@@ -43,10 +41,7 @@
 	
 	function display_threads($t) {
 		$threads = array();
-		#$unread = $api->PostCountUnread();
-		#$unread = sizeof($posts);
 		$unread = sizeof($t);
-		#$totalRead = 0;
 		foreach($t as $post) {
 			$threadid = $post['ThreadID'];
 			$read = $post['Read'];
@@ -54,8 +49,6 @@
 				$threads[$threadid] = $post;
 				$threads[$threadid]['Unread'] = 0;
 			}
-			#echo $read."<BR>";
-			#echo "threadid [$threadid] read [$read]\n";
 			if($read) {
 				$unread--;
 			}
@@ -67,7 +60,6 @@
 				$threads[$threadid]['latestPost'] = $post;
 			}
 		}
-		#$unread = $total - $totalRead;
 	
 		echo "
 			<b><font>$unread unread</font></b><br>

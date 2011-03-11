@@ -11,17 +11,9 @@
 		return;
 	}
 	
-	
-	
-	
-	
 	$api = new GpAPI();
-	#$unread = $api->PostCountUnread();
-	#$posts = $api->Posts($threadid);
 	$post = $api->PostAdd($postid, $subject, $response);
 	
-	#echo var_export($post, TRUE);
-	#return;
 	if($post) {
 		redirect('/post.php?postid='.$post);
 	}

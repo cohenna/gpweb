@@ -2,18 +2,13 @@
 	require_once 'util.php';
 	require_once 'gp-api.php';
 	
-	
 	$postid = $_GET['postid'];
 	if(empty($postid) || !logged_in()) {
 		redirect('/');
 		return;
 	}
 	
-	
-	
 	$api = new GpAPI();
-	#$unread = $api->PostCountUnread();
-	#$posts = $api->Posts($threadid);
 	$post = $api->PostGet($postid);
 	
 	$api->PostMarkAs(1, 0, $postid);
@@ -82,7 +77,6 @@
 			<textarea name="response" ></textarea>
 		</div> 
 	</fieldset> 
-	<!--<a class="whiteButton" type="submit" onclick="javascript:this.form.submit();">Login</a> -->
 	<input type="submit" class="whiteButton" value="Submit" />
 	<input type="hidden" name="postid" value="<?php echo $postid; ?>" />
 </form> 

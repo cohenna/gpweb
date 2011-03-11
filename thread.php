@@ -2,19 +2,15 @@
 	require_once 'util.php';
 	require_once 'gp-api.php';
 	
-	
 	$threadid = $_GET['tid'];
 	if(empty($threadid) || !logged_in()) {
 		redirect('/');
 		return;
 	}
 	
-	
-	
 	$api = new GpAPI();
 	$unread = $api->PostCountUnread();
 	$posts = $api->Posts($threadid);
-	
 	
 ?>
 <!DOCTYPE html>

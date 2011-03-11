@@ -2,8 +2,6 @@
 	require_once 'PhpRestClient/SimpleRestClient.php';
 	require_once 'util.php';
 	
-	
-	
 	class GpAPI {
 		private $baseurl = null;
 		private $restclient = null;
@@ -32,7 +30,6 @@
 		}
 		
 		public function Authenticate($username, $password) {
-			# /Authenticate?UserName=balls&Password=hashed&format=xml
 			$hashedpw = GpAPI::gphash($password);
 			
 			
@@ -87,19 +84,13 @@
 		public function PostAdd($postid, $subject, $description) {
 			$description = urlencode($description);
 			$subject = urlencode($subject);
-			#echo "PostAdd($postid, $subject, $description)<BR>\n";
 			$username = $_SESSION['username'];
 			$pwhash = $_SESSION['pwhash'];
 			$url = $this->baseurl."PostAdd?UserName=$username&Password=$pwhash&format=".$this->format;
-			
 			$url .= "&Subject=$subject&Description=$description";
-			
 			if(!empty($postid)) {
 				$url .= '&ReplyToID='.$postid;
 			}
-			
-			#echo $url."<BR>\n";
-			#return;
 			return $this->__handle_url($url);
 		}
 		
