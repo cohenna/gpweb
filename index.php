@@ -82,5 +82,7 @@
 </div>
 <?php
 } ?>
+
+<?php echo footer(); ?>
 </body>
 </html>

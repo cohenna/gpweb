@@ -32,5 +32,7 @@
 	echo menu();
 ?>
 </div>
+
+<?php echo footer(); ?>
 </body>
 </html>

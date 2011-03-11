@@ -8,12 +8,12 @@
 		private $format = null;
 		
 		public static function gphash($str) {
-			$command = "/usr/local/bin/perl /home/greenpride/sha512_base64.pl $str";
+			$command = PERL.' '.PERL_LIB.'/sha512_base64.pl '.$str;
 			$result = exec($command);
 			return $result;
 		}
 		
-		public function __construct($baseurl = 'https://api.greenpride.com/Service.svc/', $format='json') {
+		public function __construct($baseurl = DEFAULT_API, $format='json') {
 			$this->baseurl = $baseurl;
 			$cert_file=null;//Path to cert file 
 			$key_file=null;//Path to private key

@@ -1,9 +1,16 @@
 grab the latest iui:
 
-  hg clone https://iui.googlecode.com/hg/ iui
+	hg clone https://iui.googlecode.com/hg/ iui
 
 grab the latest PhpRestClient:
 
-  git clone https://github.com/tonychang/PhpRestClient.git
+	git clone https://github.com/tonychang/PhpRestClient.git
 
+you will also have to define the following in /conf.php, changing the value of each appropriately:
 
+	define('IUI_WEB_ROOT', '/iui/web-app'); // path to the webroot of iui
+	define('IUI_ROOT', IUI_WEB_ROOT.'/iui'); // path to iui root (typically based on IUI webroot)
+	define('GOOGLE_ANALYTICS_ID', 'your google analytics id');
+	define('PERL', '/usr/local/bin/perl'); // path to perl executable
+	define('PERL_LIB', '/home/greenpride/d.m.greenpridelabs.com'); // path to git root
+	define('DEFAULT_API', 'https://api.greenpride.com/Service.svc/'); // don't change this value, but add it

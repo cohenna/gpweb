@@ -1,6 +1,7 @@
 <?php
-	define('IUI_WEB_ROOT', '/iui/web-app');
-	define('IUI_ROOT', IUI_WEB_ROOT.'/iui');
+	
+	require_once 'conf.php';
+	
 	session_start();
 	
 	function logged_in() {
@@ -45,6 +46,33 @@
 			$b64_digest .= '=';
 		}
 		return $b64_digest;
+	}
+	
+	function footer() {
+		$html = '';
+		echo '['.GOOGLE_ANALYTICS_ID.']<BR>';
+		$google_analytics_id = GOOGLE_ANALYTICS_ID;
+		if(!empty($google_analytics_id)) {
+			$html .= google_analytics($google_analytics_id);
+		}
+		return $html;
+	}
+	
+	function google_analytics($id) {
+		return "
+<script type=\"text/javascript\">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', '$id']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>";
 	}
 	
 	function display_posts($posts) {
