@@ -50,7 +50,6 @@
 	
 	function footer() {
 		$html = '';
-		echo '['.GOOGLE_ANALYTICS_ID.']<BR>';
 		$google_analytics_id = GOOGLE_ANALYTICS_ID;
 		if(!empty($google_analytics_id)) {
 			$html .= google_analytics($google_analytics_id);
