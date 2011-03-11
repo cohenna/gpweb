@@ -1,0 +1,9 @@
+grab the latest iui:
+
+  hg clone https://iui.googlecode.com/hg/ iui
+
+grab the latest PhpRestClient:
+
+  git clone https://github.com/tonychang/PhpRestClient.git
+
+
