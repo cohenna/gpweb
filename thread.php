@@ -27,7 +27,7 @@
 
 <div class="panel" selected="true">
 <?php
-	echo menu();
+	//echo menu();
 	display_posts($posts);
 	echo menu();
 ?>
