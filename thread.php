@@ -11,6 +11,8 @@
 	$api = new GpAPI();
 	$unread = $api->PostCountUnread();
 	$posts = $api->Posts($threadid);
+	$nextUnreadPostId = $api->PostNextUnreadID();
+	$menuSettings = array('nextUnreadPostId' => $nextUnreadPostId, 'returnToBoard' => TRUE);
 	
 ?>
 <!DOCTYPE html>
@@ -29,7 +31,7 @@
 <?php
 	//echo menu();
 	display_posts($posts);
-	echo menu();
+	echo menu($menuSettings);
 ?>
 </div>
 

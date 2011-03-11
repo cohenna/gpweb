@@ -42,12 +42,7 @@
 <?php } else { // logged in
 	$api = new GpAPI();
 	$posts = $api->Posts();
-	$nextUnreadPostId = 0;
-	foreach($posts as $post) {
-		if(!$post['Read']) {
-			$nextUnreadPostId = $post['PostID'];
-		}
-	}
+	$nextUnreadPostId = $api->PostNextUnreadID();
 ?>
 <div class="panel" selected="true">
 <?php

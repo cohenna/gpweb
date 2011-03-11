@@ -121,5 +121,12 @@
 			$url = $this->baseurl."PostCountUnread?UserName=$username&Password=$pwhash&format=".$this->format;
 			return $this->__handle_url($url);
 		}
+		
+		public function PostNextUnreadID() {
+			$username = $_SESSION['username'];
+			$pwhash = $_SESSION['pwhash'];
+			$url = $this->baseurl."PostNextUnreadID?UserName=$username&Password=$pwhash&format=".$this->format;
+			return $this->__handle_url($url);
+		}
 	}
 ?>

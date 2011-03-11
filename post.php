@@ -82,7 +82,9 @@
 </form> 
 
 <?php
-	echo menu();
+	$nextUnreadPostId = $api->PostNextUnreadID();
+	$menuSettings = array('nextUnreadPostId' => $nextUnreadPostId, 'returnToBoard' => TRUE);
+	echo menu($menuSettings);
 ?>
 <!--
 <form method="GET" action="/">
