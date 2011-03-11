@@ -1,5 +1,5 @@
 <?php
-	require_once 'util.php';
+	require_once 'util.php'; // does a session_start
 	require_once 'gp-api.php';
 ?>
 <!DOCTYPE html>
@@ -39,12 +39,20 @@
 	</fieldset> 
 	<input type="submit" class="whiteButton" value="Login" />
 </form> 
-<?php } else {
+<?php } else { // logged in
 	$api = new GpAPI();
 	$posts = $api->Posts();
+	$nextUnreadPostId = 0;
+	foreach($posts as $post) {
+		if(!$post['Read']) {
+			$nextUnreadPostId = $post['PostID'];
+		}
+	}
 ?>
 <div class="panel" selected="true">
 <?php
+	$menuSettings = array('nextUnreadPostId' => $nextUnreadPostId, 'returnToBoard' => FALSE);
+	echo menu($menuSettings);
 	display_threads($posts);
 ?>
 <h2>Create a New Thread</h2> 
@@ -68,6 +76,9 @@
 	</fieldset> 
 	<input type="submit" class="whiteButton" value="Submit" />
 </form> 
+<?php 
+	echo menu($menuSettings);
+?>
 </div>
 <?php
 } ?>

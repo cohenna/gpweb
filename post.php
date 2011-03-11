@@ -80,6 +80,15 @@
 	<input type="submit" class="whiteButton" value="Submit" />
 	<input type="hidden" name="postid" value="<?php echo $postid; ?>" />
 </form> 
+
+<?php
+	echo menu();
+?>
+<!--
+<form method="GET" action="/">
+<input type="submit" value="Return to Board" />
+</form>
+-->
 </div>
 
 

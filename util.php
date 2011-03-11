@@ -1,10 +1,39 @@
 <?php
 	define('IUI_WEB_ROOT', '/iui/web-app');
 	define('IUI_ROOT', IUI_WEB_ROOT.'/iui');
+	session_start();
 	
 	function logged_in() {
-		session_start();
 		return !empty($_SESSION['username']);
+	}
+	
+	function menu($menuSettings=array()) {
+		
+		$nextUnreadPostId = 0;
+		$returnToBoard = TRUE;
+		if(array_key_exists('nextUnreadPostId', $menuSettings)) {
+			$nextUnreadPostId = $menuSettings['nextUnreadPostId'];
+		}
+		if(array_key_exists('returnToBoard', $menuSettings)) {
+			$returnToBoard = $menuSettings['returnToBoard'];
+		}
+		
+		$html = '';
+		
+		if($returnToBoard) {
+			$html .= '<input class="whiteButton" type="Button" onclick="javascript:document.location = \'/\';" value="Return to Board" />';
+		}
+		
+		if($nextUnreadPostId) {
+			$html .= '
+			<form id="nextUnread" class="panel" action="/post.php" method="GET"> 
+				<input type="hidden" name="postid" value="'.$nextUnreadPostId.'" />
+				<input type="submit" class="redButton" value="Next Unread" />
+			</form>';
+		} else {
+			$html .= '<input type="submit" disabled class="whiteButton" value="No Unread Posts" />';
+		}
+		return $html;
 	}
 	
 	function redirect($url) {
@@ -21,7 +50,6 @@
 	function display_posts($posts) {
 	
 		echo "
-			<div class=\"panel\" selected=\"true\">
 			<ul id=\"home\" title=\"Threads\" selected=\"true\">";
 		foreach($posts as $post) {
 			$subject = $post['Subject'];
@@ -35,8 +63,7 @@
 				";
 		}
 		echo "
-			</ul>
-			</div>";
+			</ul>";
 	}
 	
 	function display_threads($t) {
@@ -69,9 +96,13 @@
 			$threadid = $thread['ThreadID'];
 			$unread = $thread['Unread'];
 			$author = $thread['AuthorName'];
-			$class = $unread == 0 ? 'whiteButton' : 'redButton';
+			$class = 'whiteButton';
+			if($unread > 0) {
+				$class =  'redButton';
+				$subject = "($unread) ".$subject;
+			}
 			echo "
-				<li><a class=\"$class\" href=\"/thread.php?tid=$threadid\">$subject <i>by $author</i> - $unread unread</a></li>
+				<li><a class=\"$class\" href=\"/thread.php?tid=$threadid\">$subject <i>by $author</i></a></li>
 				";
 		}
 		echo "

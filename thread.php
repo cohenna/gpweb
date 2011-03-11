@@ -25,8 +25,12 @@
 </head>
 <body>
 
+<div class="panel" selected="true">
 <?php
+	echo menu();
 	display_posts($posts);
+	echo menu();
 ?>
+</div>
 </body>
 </html>
