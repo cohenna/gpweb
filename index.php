@@ -61,6 +61,7 @@
 		<div class="row"> 
 			<label>Subject</label> 
 			<input type="text" name="subject" value="<?php echo $subject; ?>" />
+			<!--<textarea rows="1" name="subject"><?php echo $subject; ?></textarea>-->
 		</div> 
 		<div class="row"> 
 			<label>Response</label> 

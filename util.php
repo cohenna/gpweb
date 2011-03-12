@@ -19,7 +19,7 @@
 			$returnToBoard = $menuSettings['returnToBoard'];
 		}
 		
-		$html = '';
+		$html = '<div class="menu">';
 		
 		if($returnToBoard) {
 			$html .= '<input class="whiteButton" type="Button" onclick="javascript:document.location = \'/\';" value="Return to Board" />';
@@ -36,6 +36,7 @@
 		} else {
 			$html .= '<input type="submit" disabled class="whiteButton" value="No Unread Posts" />';
 		}
+		$html .= '</div>';
 		return $html;
 	}
 	

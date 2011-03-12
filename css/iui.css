@@ -251,6 +251,7 @@ input:not(input[type|=radio]):not(input[type|=checkbox]) {
     padding: 6px 6px 6px 44px;
     font-size: 16px;
     font-weight: normal;
+	border: 1px solid #999999;
 }
 
 /************************************************************************************************/
@@ -299,6 +300,15 @@ fieldset > .row:last-child {
     height: 42px;
     background: none;
 }
+
+.row > textarea {
+    margin: 0px 0px 0px 0px;
+    border: 1px solid #999999;
+	height: 100px;
+	width: 180px;
+    background: none;
+}
+
 .row > input[type|=radio], .row > input[type|=checkbox] {
   margin: 7px 7px 0 0;
   height: 25px;
