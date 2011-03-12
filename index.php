@@ -2,15 +2,12 @@
 	require_once 'util.php'; // does a session_start
 	require_once 'gp-api.php';
 ?>
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Greenpride Mobile</title>
-	<link rel="icon" type="image/png" href="<?php echo IUI_ROOT; ?>/iui-favicon.png">
-	<link rel="apple-touch-icon" href="<?php echo IUI_ROOT; ?>/iui-logo-touch-icon.png" />
-	<link rel="stylesheet" href="<?php echo IUI_ROOT; ?>/iui.css" type="text/css" />
-	<link rel="stylesheet" title="Default" href="<?php echo IUI_ROOT; ?>/t/default/default-theme.css"  type="text/css"/>
-	<link rel="stylesheet" href="<?php echo IUI_WEB_ROOT; ?>/css/iui-panel-list.css" type="text/css" />
+	<?php echo head_links(); ?>
 </head>
 <body>
 
@@ -45,10 +42,11 @@
 	$nextUnreadPostId = $api->PostNextUnreadID();
 ?>
 <div class="panel" selected="true">
+
 <?php
 	$menuSettings = array('nextUnreadPostId' => $nextUnreadPostId, 'returnToBoard' => FALSE);
 	echo menu($menuSettings);
-	display_threads($posts);
+	display_posts($posts);
 ?>
 <h2>Create a New Thread</h2> 
 <form id="postsubmit" class="panel" action="/postsubmit.php" method="POST" > 

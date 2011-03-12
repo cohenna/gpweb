@@ -1,0 +1,22 @@
+/*
+
+*/
+
+body > ul > li > a {
+    font-size: 10px;
+}
+
+
+
+li .postTitle {
+	width: 480px;
+    margin: 0;
+    left: 6px;
+    top: 7px;
+    text-align: center;
+    letter-spacing: -0.07em;
+    color: #93883F;
+    font-weight: bold;
+    text-decoration: none;
+}
+

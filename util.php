@@ -26,10 +26,12 @@
 		}
 		
 		if($nextUnreadPostId) {
+			$api = new GpAPI();
+			$unreadCount = $api->PostCountUnread();
 			$html .= '
 			<form id="nextUnread" class="panel" action="/post.php" method="GET"> 
 				<input type="hidden" name="postid" value="'.$nextUnreadPostId.'" />
-				<input type="submit" class="redButton" value="Next Unread" />
+				<input type="submit" class="redButton" value="('.$unreadCount.') Next Unread" />
 			</form>';
 		} else {
 			$html .= '<input type="submit" disabled class="whiteButton" value="No Unread Posts" />';
@@ -74,6 +76,39 @@
 </script>";
 	}
 	
+	function head_links() {
+		//<link rel="stylesheet" title="Default" href="'.IUI_ROOT.'/t/default/default-theme.css"  type="text/css" />
+		#<link rel="stylesheet" href="'.IUI_WEB_ROOT.'/css/iui-panel-list.css" type="text/css" />
+		return '
+			<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/> 
+			<link rel="stylesheet" href="/css/iui.css" type="text/css" />
+			<link rel="stylesheet" href="/css/gp.css"  type="text/css"/>
+			
+			';
+	}
+	
+	function get_initals($phrase) {
+		$initals = '';
+		$len = strlen($phrase);
+		if($len) {
+			$initials = $phrase[0];
+			$space = FALSE;
+			for($i = 1; $i < $len; $i++) {
+				$c = trim($phrase[$i]);
+				if(empty($c)) {
+					$space = TRUE;
+				}
+				else {
+					if($space) {
+						$initials .= $c;
+					}
+					$space = FALSE;
+				}
+			}
+		}
+		return $initials;
+	}
+	
 	function display_posts($posts) {
 	
 		echo "
@@ -84,9 +119,18 @@
 			$author = $post['AuthorName'];
 			$read = $post['Read'];
 			$level = $post['Level'];
+			$indent = 15*$level;
 			$class = $read ? 'whiteButton' : 'redButton';
-			echo "<li><a class=\"$class\" href=\"/post.php?postid=$postID\">";
-			echo "$subject <i>by $author</i></a></li>
+			if($level == 1) {
+				$prefix = '-';				
+			}
+			else {
+				$prefix = '';
+				$indent += 10;
+			}
+			$author = get_initals($author);
+			echo "<li><a style=\"margin-left:".$indent."px;\" class=\"$class\" href=\"/post.php?postid=$postID\">";
+			echo "<span>$prefix $subject</span> <i>$author</i></a></li>
 				";
 		}
 		echo "
@@ -116,20 +160,20 @@
 		}
 	
 		echo "
-			<b><font>$unread unread</font></b><br>
 			<ul id=\"home\" title=\"Threads\" selected=\"true\">";
 		foreach($threads as $thread) {
 			$subject = $thread['Subject'];
 			$threadid = $thread['ThreadID'];
 			$unread = $thread['Unread'];
 			$author = $thread['AuthorName'];
+			$author = get_initals($author);
 			$class = 'whiteButton';
 			if($unread > 0) {
 				$class =  'redButton';
 				$subject = "($unread) ".$subject;
 			}
 			echo "
-				<li><a class=\"$class\" href=\"/thread.php?tid=$threadid\">$subject <i>by $author</i></a></li>
+				<li><a class=\"$class\" href=\"/thread.php?tid=$threadid\">$subject <i>$author</i></a></li>
 				";
 		}
 		echo "

@@ -7,13 +7,15 @@
 		private $restclient = null;
 		private $format = null;
 		
+		const DEFAULT_API = 'https://api.greenpride.com/Service.svc/';
+		
 		public static function gphash($str) {
 			$command = PERL.' '.PERL_LIB.'/sha512_base64.pl '.$str;
 			$result = exec($command);
 			return $result;
 		}
 		
-		public function __construct($baseurl = DEFAULT_API, $format='json') {
+		public function __construct($baseurl = GpAPI::DEFAULT_API, $format='json') {
 			$this->baseurl = $baseurl;
 			$cert_file=null;//Path to cert file 
 			$key_file=null;//Path to private key
