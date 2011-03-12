@@ -84,7 +84,7 @@
 			<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/> 
 			<link rel="stylesheet" href="/css/iui.css" type="text/css" />
 			<link rel="stylesheet" href="/css/gp.css"  type="text/css"/>
-			<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+			<link rel="apple-touch-icon" href="/lca-apple-touch-icon.png"/>
 			';
 	}
 	
