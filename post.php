@@ -40,6 +40,8 @@
 		echo '<BR>';
 		echo 'Subject: ' .$parent['Subject'];
 		echo '<BR>';
+		echo 'Date: ' .formatDate($parent['Date']);
+		echo '<BR>';
 		echo preg_replace('/\n/', '<BR>', $parent['Description']);
 		echo '<BR>';
 		echo '</i>';
@@ -49,6 +51,8 @@
 	echo 'Author: '.$post['AuthorName'];
 	echo '<BR>';
 	echo 'Subject: ' .$post['Subject'];
+	echo '<BR>';
+	echo 'Date: ' .formatDate($post['Date']);
 	echo '<BR>';
 	echo preg_replace('/\n/', '<BR>', $post['Description']);
 	echo '<BR>';

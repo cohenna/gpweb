@@ -77,6 +77,34 @@
 </script>";
 	}
 	
+	function formatDate($str, $short=FALSE) {
+		// /Date(1299903748000-0700)/
+		date_default_timezone_set('America/Chicago');
+		if(preg_match("/\((?P<timestamp>.+)-(?P<offset>.+)\)/",
+                                     $str,
+                                     $matches)) {
+			#$sitename = strtolower().".com";
+			$time = $matches['timestamp']/1000;
+			#echo "offset: ".$matches['offset']."<BR>";
+			#$matches['offset'] /= 100;
+			#echo "offset: ".$matches['offset']."<BR>";
+			#$time += $matches['offset'] * 3600;
+			#echo "time: ".$time."<BR>";
+			if($short) {
+				#$format = 'n/j G:i';
+				$format = '%-m/%e %H:%M';
+			}
+			else {
+				#3/11/2011 9:22:28 PM
+				#$format = 'n/j/Y g:i A';
+				$format = '%-m/%e/%Y %I:%M %p';
+			}
+			return strftime($format, $time);
+		}
+		#return strtotime($str);
+		#return $str;
+	}
+	
 	function head_links() {
 		//<link rel="stylesheet" title="Default" href="'.IUI_ROOT.'/t/default/default-theme.css"  type="text/css" />
 		#<link rel="stylesheet" href="'.IUI_WEB_ROOT.'/css/iui-panel-list.css" type="text/css" />
@@ -84,7 +112,7 @@
 			<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;"/> 
 			<link rel="stylesheet" href="/css/iui.css" type="text/css" />
 			<link rel="stylesheet" href="/css/gp.css"  type="text/css"/>
-			<link rel="apple-touch-icon" href="/lca-apple-touch-icon.png"/>
+			<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 			';
 	}
 	
@@ -120,6 +148,7 @@
 			$author = $post['AuthorName'];
 			$read = $post['Read'];
 			$level = $post['Level'];
+			$date = formatDate($post['Date'], TRUE);
 			$indent = 15*$level;
 			$class = $read ? 'whiteButton' : 'redButton';
 			if($level == 1) {
@@ -131,7 +160,7 @@
 			}
 			$author = get_initals($author);
 			echo "<li><a style=\"margin-left:".$indent."px;\" class=\"$class\" href=\"/post.php?postid=$postID\">";
-			echo "<span>$prefix $subject</span> <i>$author</i></a></li>
+			echo "<span>$prefix <u>$subject</u></span> $date <i>$author</i></a></li>
 				";
 		}
 		echo "
