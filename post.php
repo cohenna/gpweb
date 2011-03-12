@@ -40,7 +40,7 @@
 		echo '<BR>';
 		echo 'Subject: ' .$parent['Subject'];
 		echo '<BR>';
-		echo $parent['Description'];
+		echo preg_replace('/\n/', '<BR>', $parent['Description']);
 		echo '<BR>';
 		echo '</i>';
 	}
@@ -50,7 +50,7 @@
 	echo '<BR>';
 	echo 'Subject: ' .$post['Subject'];
 	echo '<BR>';
-	echo $post['Description'];
+	echo preg_replace('/\n/', '<BR>', $post['Description']);
 	echo '<BR>';
 	echo '</b>';
 	
