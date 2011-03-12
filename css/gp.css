@@ -6,6 +6,24 @@ body > ul > li > a {
     font-size: 10px;
 }
 
+div {
+	margin: 10px 0px 10px 0px;
+	padding: 10px 10px 10px 10px;
+}
+
+.parent   {
+	font-style: italic;
+	text-align: left;
+	border: none;
+	-webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+.parentHeading {
+	width: 25px;
+	font-weight: bold;
+}
+
 
 
 .menu {

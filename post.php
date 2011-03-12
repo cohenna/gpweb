@@ -29,24 +29,52 @@
 <head>
 	<title>Greenpride Mobile</title>
 	<?php echo head_links(); ?>
+	<script language="javascript">
+	function toggleParent() {
+		//$('#parent').show();
+		var text = ' Previous Message';
+		if($('#parent').css('display') == 'none') {
+			text = 'Hide' + text;
+		}
+		else {
+			text = 'Show' + text;
+		}
+		$('#parentToggle').val(text);
+		$('#parent').toggle();
+	}
+	</script
 </head>
 <body>
 <div class="panel" selected="true">
-<?php
-	if(!empty($parent)) {
-		echo '<i>';
-		echo 'In response to: <BR><BR>';
-		echo 'Author: '.$parent['AuthorName'];
-		echo '<BR>';
-		echo 'Subject: ' .$parent['Subject'];
-		echo '<BR>';
-		echo 'Date: ' .formatDate($parent['Date']);
-		echo '<BR>';
-		echo preg_replace('/\n/', '<BR>', $parent['Description']);
-		echo '<BR>';
-		echo '</i>';
-	}
 
+<?php if(!empty($parent)) { ?>
+<input id="parentToggle" type="button" class="whiteButton" value="Show Previous Message" onclick="javascript:toggleParent()" />
+<div id="parent" class="parent" style="display:none; border: 1px solid #999999;">
+<table>
+	<tr>
+		<td colspan="2" class="parent">In response to:</td>
+	</tr>
+	<tr></tr>	
+	<tr>
+		<td class="parentHeading">Author:</td>
+		<td class="parent"><?php echo $parent['AuthorName']; ?></td>
+	</tr>
+	<tr>
+		<td class="parentHeading">Subject:</td>
+		<td class="parent"><?php echo $parent['Subject']; ?></td>
+	</tr>
+	<tr>
+		<td class="parentHeading">Date:</td>
+		<td class="parent"><?php echo formatDate($parent['Date']); ?></td>
+	</tr>
+	<tr>
+		<td class="parent" colspan="2"><?php echo preg_replace('/\n/', '<BR>', $parent['Description']); ?></td>
+	</tr>
+</table>
+</div>
+<?php } ?>
+
+<?php
 	echo '<b>';
 	echo 'Author: '.$post['AuthorName'];
 	echo '<BR>';
@@ -59,6 +87,7 @@
 	echo '</b>';
 	
 ?>
+
 <form id="postsubmit" class="panel" action="/postsubmit.php" method="POST" > 
 	<fieldset>
 <?php
