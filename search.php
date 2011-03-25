@@ -1,5 +1,10 @@
 <?php
 	require_once 'util.php'; // does a session_start
+	if(!logged_in()) {
+		rickroll('/login.php');
+	}
+	
+	
 	require_once 'gp-api.php';
 	
 	function is_match($text, $keywords) {

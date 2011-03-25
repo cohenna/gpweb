@@ -1,5 +1,8 @@
 <?php
 	require_once 'util.php';
+	if(!logged_in()) {
+		rickroll('/login.php');
+	}
 	require_once 'gp-api.php';
 	
 	$postid = $_GET['postid'];

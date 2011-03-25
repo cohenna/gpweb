@@ -1,6 +1,6 @@
 <?php
-	require_once 'PhpRestClient/SimpleRestClient.php';
 	require_once 'util.php';
+	require_once 'PhpRestClient/SimpleRestClient.php';
 	
 	class GpAPI {
 		private $baseurl = null;

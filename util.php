@@ -68,6 +68,10 @@
 	}
 	
 	function redirect($url) {
+		return rickroll($url);
+	}
+	
+	function rickroll($url) {
 		header( "Location: $url" ) ;
 	}
 	
