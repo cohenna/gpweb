@@ -61,7 +61,7 @@
 				<input type="submit" class="redButton" value="('.$unreadCount.') Next Unread" />
 			</form>';
 		} else {
-			$html .= '<input type="submit" disabled class="whiteButton" value="No Unread Posts" />';
+			$html .= '<input type="submit" class="whiteButton" onclick="javascript:document.location = \'/\'" value="No Unread Posts" />';
 		}
 		$html .= '</div>';
 		return $html;
