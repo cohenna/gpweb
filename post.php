@@ -100,8 +100,15 @@
 </table>
 </div>
 <?php } ?>
-
 <?php
+	$nextUnreadPostId = $api->PostNextUnreadID($post['ThreadID']);
+	$menuSettings = array(
+		'nextUnreadPostId' => $nextUnreadPostId, 
+		'returnToBoard' => FALSE, 
+		'search' => FALSE
+	);
+	echo menu($menuSettings);
+	
 	echo '<b>';
 	echo 'Author: '.$post['AuthorName'];
 	echo '<BR>';
@@ -138,7 +145,6 @@
 </form> 
 
 <?php
-	$nextUnreadPostId = $api->PostNextUnreadID($post['ThreadID']);
 	$menuSettings = array(
 		'nextUnreadPostId' => $nextUnreadPostId, 
 		'returnToBoard' => TRUE,
