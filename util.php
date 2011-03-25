@@ -174,6 +174,11 @@
 		$showIndent = TRUE;
 		$searchString = '';
 		$searchKeywords = array();
+		$currentPostId = 0;
+		
+		if(array_key_exists('currentPostId', $settings)) {
+			$currentPostId = $settings['currentPostId'];
+		}
 		if(array_key_exists('searchString', $settings)) {
 			$searchString = $settings['searchString'];
 		}
@@ -184,7 +189,7 @@
 			$showIndent = $settings['showIndent'];
 		}
 		echo "
-			<ul id=\"home\" title=\"Threads\" selected=\"true\">";
+			<ul style=\"margin-left:0;padding-left:0;\" id=\"home\" title=\"Threads\" selected=\"true\">";
 		foreach($posts as $post) {
 			$subject = $post['Subject'];
 			$postID = $post['PostID'];
@@ -212,7 +217,13 @@
 			if(!empty($searchString)) {
 				$url .= '&q='.$searchString;
 			}
-			echo "<li><a style=\"margin-left:{$indent}px;\" class=\"$class\" href=\"$url\">";
+			if(!empty($currentPostId) && $postID == $currentPostId) {
+				$style = 'list-style: none;background-color: Lightgrey;';
+			}
+			else {
+				$style = 'list-style: none;';
+			}
+			echo "<li style=\"$style\"><a style=\"margin-left:{$indent}px;\" class=\"$class\" href=\"$url\">";
 			echo "<span>$prefix <u>$subject</u></span> $date <i>$author</i></a></li>
 				";
 		}

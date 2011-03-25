@@ -1,20 +1,23 @@
 <?php
 	require_once 'util.php';
-	if(!logged_in()) {
-		rickroll('/login.php');
-	}
 	require_once 'gp-api.php';
 	
 	$postid = $_GET['postid'];
 	if(empty($postid) || !logged_in()) {
-		redirect('/');
+		rickroll('/');
 		return;
 	}
 	
 	$api = new GpAPI();
 	$post = $api->PostGet($postid);
+	$threadId = 0;
+	#echo var_export($post, TRUE).'<BR>';
+	#$threadId = $post[
 	
 	$api->PostMarkAs(1, 0, $postid);
+	
+	#$postsParams = array('ThreadID' => $post['ThreadID']);
+	$threadPosts = $api->Posts($post['ThreadID']);
 	
 	$parent_id = $post['ParentID'];
 	if($parent_id != $postid) {
@@ -34,7 +37,6 @@
 	<?php echo head_links(); ?>
 	<script language="javascript">
 	function toggleParent() {
-		//$('#parent').show();
 		var text = ' Previous Message';
 		if($('#parent').css('display') == 'none') {
 			text = 'Hide' + text;
@@ -45,11 +47,33 @@
 		$('#parentToggle').val(text);
 		$('#parent').toggle();
 	}
+	function toggleThread() {
+		var text = ' Thread';
+		if($('#thread').css('display') == 'none') {
+			text = 'Hide' + text;
+		}
+		else {
+			text = 'Show' + text;
+		}
+		$('#threadToggle').val(text);
+		$('#thread').toggle();
+	}
+	
 	</script
 </head>
 <body>
 <div class="panel" selected="true">
 
+
+<input id="threadToggle" type="button" class="whiteButton" value="Show Thread" onclick="javascript:toggleThread()" />
+<div id="thread" style="display:none; margin-left: 0; padding-left: 0; border: 1px solid #999999;">
+<?php
+	$settings = array(
+		'currentPostId' => $postid,
+	);
+	echo display_posts($threadPosts, $settings);
+?>
+</div>
 <?php if(!empty($parent)) { ?>
 <input id="parentToggle" type="button" class="whiteButton" value="Show Previous Message" onclick="javascript:toggleParent()" />
 <div id="parent" class="parent" style="display:none; border: 1px solid #999999;">
