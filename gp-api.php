@@ -124,10 +124,13 @@
 			return $this->__handle_url($url);
 		}
 		
-		public function PostNextUnreadID() {
+		public function PostNextUnreadID($threadID=0) {
 			$username = $_SESSION['username'];
 			$pwhash = $_SESSION['pwhash'];
 			$url = $this->baseurl."PostNextUnreadID?UserName=$username&Password=$pwhash&format=".$this->format;
+			if(!empty($threadID)) {
+				$url .= "&ThreadID=$threadID";
+			}
 			return $this->__handle_url($url);
 		}
 	}

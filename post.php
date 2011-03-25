@@ -138,7 +138,7 @@
 </form> 
 
 <?php
-	$nextUnreadPostId = $api->PostNextUnreadID();
+	$nextUnreadPostId = $api->PostNextUnreadID($post['ThreadID']);
 	$menuSettings = array(
 		'nextUnreadPostId' => $nextUnreadPostId, 
 		'returnToBoard' => TRUE,
