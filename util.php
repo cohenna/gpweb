@@ -9,17 +9,44 @@
 	}
 	
 	function menu($menuSettings=array()) {
-		
 		$nextUnreadPostId = 0;
 		$returnToBoard = TRUE;
+		$search = TRUE;
+		$searchString = '';
+		$backToSearchResults = FALSE;
 		if(array_key_exists('nextUnreadPostId', $menuSettings)) {
 			$nextUnreadPostId = $menuSettings['nextUnreadPostId'];
 		}
 		if(array_key_exists('returnToBoard', $menuSettings)) {
 			$returnToBoard = $menuSettings['returnToBoard'];
 		}
+		if(array_key_exists('search', $menuSettings)) {
+			$search = $menuSettings['search'];
+		}
+		if(array_key_exists('searchString', $menuSettings)) {
+			$searchString = $menuSettings['searchString'];
+		}
+		if(array_key_exists('backToSearchResults', $menuSettings)) {
+			$backToSearchResults = $menuSettings['backToSearchResults'];
+		}
 		
 		$html = '<div class="menu">';
+		
+		if($backToSearchResults && !empty($searchString)) {
+			$url = '/search.php?q='.$searchString;
+			$html .= '<input class="whiteButton" type="Button" onclick="javascript:document.location = \''.$url.'\';" value="Back to Search Results" />';
+		}
+		
+		if($search) {
+			$html .= '<form action="search.php" method="get">';
+			if(!empty($searchString)) {
+				$html .= '<input class="whiteButton" type="text" name="q" value="'.$searchString.'" />';
+			}
+			else {
+				$html .= '<input class="whiteButton" type="text" onclick="javascript:$(this).val(\'\');" name="q" value="Search" />';
+			}
+			$html .= '</form>';
+		}
 		
 		if($returnToBoard) {
 			$html .= '<input class="whiteButton" type="Button" onclick="javascript:document.location = \'/\';" value="Return to Board" />';
@@ -139,8 +166,19 @@
 		return $initials;
 	}
 	
-	function display_posts($posts) {
-	
+	function display_posts($posts, $settings=array()) {
+		$showIndent = TRUE;
+		$searchString = '';
+		$searchKeywords = array();
+		if(array_key_exists('searchString', $settings)) {
+			$searchString = $settings['searchString'];
+		}
+		if(array_key_exists('searchKeywords', $settings)) {
+			$searchKeywords = $settings['searchKeywords'];
+		}
+		if(array_key_exists('showIndent', $settings)) {
+			$showIndent = $settings['showIndent'];
+		}
 		echo "
 			<ul id=\"home\" title=\"Threads\" selected=\"true\">";
 		foreach($posts as $post) {
@@ -150,17 +188,27 @@
 			$read = $post['Read'];
 			$level = $post['Level'];
 			$date = formatDate($post['Date'], TRUE);
-			$indent = 15*$level;
-			$class = $read ? 'whiteButton' : 'redButton';
-			if($level == 1) {
-				$prefix = '-';				
+			if($showIndent) {
+				$indent = 15*$level;
+				if($level == 1) {
+					$prefix = '-';				
+				}
+				else {
+					$prefix = '';
+					$indent += 10;
+				}
 			}
 			else {
+				$indent = 0;
 				$prefix = '';
-				$indent += 10;
 			}
+			$class = $read ? 'whiteButton' : 'redButton';
 			$author = get_initals($author);
-			echo "<li><a style=\"margin-left:".$indent."px;\" class=\"$class\" href=\"/post.php?postid=$postID\">";
+			$url = "/post.php?postid=$postID";
+			if(!empty($searchString)) {
+				$url .= '&q='.$searchString;
+			}
+			echo "<li><a style=\"margin-left:{$indent}px;\" class=\"$class\" href=\"$url\">";
 			echo "<span>$prefix <u>$subject</u></span> $date <i>$author</i></a></li>
 				";
 		}

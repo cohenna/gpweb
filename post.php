@@ -112,7 +112,14 @@
 
 <?php
 	$nextUnreadPostId = $api->PostNextUnreadID();
-	$menuSettings = array('nextUnreadPostId' => $nextUnreadPostId, 'returnToBoard' => TRUE);
+	$menuSettings = array(
+		'nextUnreadPostId' => $nextUnreadPostId, 
+		'returnToBoard' => TRUE,
+	);
+	if(!empty($_GET['q'])) {
+		$menuSettings['searchString'] = $_GET['q'];
+		$menuSettings['backToSearchResults'] = TRUE;
+	}
 	echo menu($menuSettings);
 ?>
 <!--
