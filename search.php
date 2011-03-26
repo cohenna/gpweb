@@ -57,7 +57,7 @@
 		#	array_push($postmatches, $post);
 		#}
 		if(is_match(strtolower($post['Subject']), $keywords)
-			|| is_match(strtolower($post['Description']), $keywords)
+			|| is_match(strip_tags(strtolower($post['Description'])), $keywords)
 			|| is_match(strtolower($post['Author']), $keywords)
 		) {
 			array_push($postmatches, $post);
