@@ -56,7 +56,7 @@
 <div class="panel" selected="true">
 
 
-<input id="threadToggle" type="button" class="whiteButton" value="Show Thread" onclick="javascript:toggleDiv('thread', 'threadToggle', 'Show Thread', 'Hide Thread')" />
+<input id="threadToggle" type="button" value="Show Thread" onclick="javascript:toggleDiv('thread', 'threadToggle', 'Show Thread', 'Hide Thread')" />
 <div id="thread" style="display:none; margin-left: 0; padding-left: 0; border: 1px solid #999999;">
 <?php
 	$settings = array(
@@ -66,7 +66,7 @@
 ?>
 </div>
 <?php if(!empty($parent)) { ?>
-<input id="parentToggle" type="button" class="whiteButton" value="Show Previous Message" onclick="javascript:toggleDiv('parent', 'parentToggle', 'Show Previous Message', 'Hide Previous Message')" />
+<input id="parentToggle" type="button" value="Show Previous Message" onclick="javascript:toggleDiv('parent', 'parentToggle', 'Show Previous Message', 'Hide Previous Message')" />
 <div id="parent" class="parent" style="display:none; border: 1px solid #999999;">
 <table>
 	<tr>
@@ -100,11 +100,6 @@
 	);
 	echo menu($menuSettings);
 ?>
-<style>
-.heading table,th,td,tr {
-	text-align: left;
-}
-</style>
 <div class="heading">
 <table>
 	<tr>
@@ -127,34 +122,40 @@
 </div>
 	
 
-<input id="responseToggle" type="button" class="whiteButton" value="Respond to Post" onclick="javascript:toggleDiv('response', 'responseToggle', 'Respond to Post', 'Hide Respond to Post')" />
+<input id="responseToggle" type="button" value="Respond to Post" onclick="javascript:toggleDiv('response', 'responseToggle', 'Respond to Post', 'Hide Respond to Post')" />
 <div id="response" style="display:none; margin-left: 0; padding-left: 0; border: 1px solid #999999;">
 <form id="postsubmit" class="panel" action="/postsubmit.php" method="POST" > 
-	<fieldset>
+	<table class="heading">
 <?php
 	if(!empty($_GET['e'])) {
 ?>
-	<div class="row"> 
-	<b><center><font color="red"><?php echo $_GET['e'] ?></font></center></b>
-	</div>
+	<tr>
+		<td align="center" colspan="2"><font color="red"><?php echo $_GET['e'] ?></font></td>
+	</tr>
 <?php } ?>
-		<div class="row"> 
-			<label>Subject</label> 
-			<input type="text" name="subject" value="<?php echo $subject; ?>" />
-		</div> 
-		<div class="row"> 
-			<label>Response</label> 
-			<textarea name="response" ></textarea>
-		</div> 
-	</fieldset> 
-	<input type="submit" class="whiteButton" value="Submit" />
+		<tr> 
+			<th>Subject</th>
+		</tr> 
+		<tr>
+			<td><input type="text" name="subject" value="<?php echo $subject; ?>" /></td>
+		</tr>
+		<tr>
+			<th>Response</th>
+		</tr>
+		<tr>
+			<td><textarea rows="5" name="response" style="width:100%"></textarea></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Submit" /></td>
+		</tr>
+	</table>
 	<input type="hidden" name="postid" value="<?php echo $postid; ?>" />
 </form> 
 </div>
 
 <?php
 	$menuSettings = array(
-		'nextUnreadPostId' => $nextUnreadPostId, 
+		'showNextUnread' => FALSE, 
 		'returnToBoard' => TRUE,
 	);
 	if(!empty($_GET['q'])) {

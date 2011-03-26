@@ -30,3 +30,6 @@ div {
 	margin: 0px 0px 10px 0px;
 }
 
+.heading table,th,td,tr {
+	text-align: left;
+}

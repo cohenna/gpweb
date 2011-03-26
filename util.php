@@ -8,60 +8,56 @@
 		return !empty($_SESSION['username']);
 	}
 	
+	function array_safe_get($key, $array, $default) {
+		if(array_key_exists($key, $array)) {
+			return $array[$key];
+		}
+		return $default;
+	}
+	
 	function menu($menuSettings=array()) {
-		$nextUnreadPostId = 0;
-		$returnToBoard = TRUE;
-		$search = TRUE;
-		$searchString = '';
-		$backToSearchResults = FALSE;
-		if(array_key_exists('nextUnreadPostId', $menuSettings)) {
-			$nextUnreadPostId = $menuSettings['nextUnreadPostId'];
-		}
-		if(array_key_exists('returnToBoard', $menuSettings)) {
-			$returnToBoard = $menuSettings['returnToBoard'];
-		}
-		if(array_key_exists('search', $menuSettings)) {
-			$search = $menuSettings['search'];
-		}
-		if(array_key_exists('searchString', $menuSettings)) {
-			$searchString = $menuSettings['searchString'];
-		}
-		if(array_key_exists('backToSearchResults', $menuSettings)) {
-			$backToSearchResults = $menuSettings['backToSearchResults'];
-		}
+		$showNextUnread = array_safe_get('showNextUnread', $menuSettings, TRUE);
+		$nextUnreadPostId = array_safe_get('nextUnreadPostId', $menuSettings, 0);
+		$returnToBoard = array_safe_get('returnToBoard', $menuSettings, TRUE);
+		$search = array_safe_get('search', $menuSettings, TRUE);
+		$backToSearchResults = array_safe_get('backToSearchResults', $menuSettings, FALSE);
+		$searchString = array_safe_get('searchString', $menuSettings, '');
 		
 		$html = '<div class="menu">';
 		
 		if($backToSearchResults && !empty($searchString)) {
 			$url = '/search.php?q='.$searchString;
-			$html .= '<input class="whiteButton" type="Button" onclick="javascript:document.location = \''.$url.'\';" value="Back to Search Results" />';
+			$html .= '<input type="Button" onclick="javascript:document.location = \''.$url.'\';" value="Back to Search Results" />';
 		}
 		
 		if($search) {
 			$html .= '<form action="search.php" method="get">';
 			if(!empty($searchString)) {
-				$html .= '<input class="whiteButton" type="text" name="q" value="'.$searchString.'" />';
+				$html .= '<input type="text" name="q" value="'.$searchString.'" />';
 			}
 			else {
-				$html .= '<input class="whiteButton" type="text" onclick="javascript:$(this).val(\'\');" name="q" value="Search" />';
+				$html .= '<input type="text" onclick="javascript:$(this).val(\'\');" name="q" value="Search" />';
 			}
 			$html .= '</form>';
 		}
 		
 		if($returnToBoard) {
-			$html .= '<input class="whiteButton" type="Button" onclick="javascript:document.location = \'/\';" value="Return to Board" />';
+			$html .= '<input type="Button" onclick="javascript:document.location = \'/\';" value="Return to Board" />';
 		}
 		
-		if($nextUnreadPostId) {
-			$api = new GpAPI();
-			$unreadCount = $api->PostCountUnread();
-			$html .= '
-			<form id="nextUnread" class="panel" action="/post.php" method="GET"> 
-				<input type="hidden" name="postid" value="'.$nextUnreadPostId.'" />
-				<input type="submit" class="redButton" value="('.$unreadCount.') Next Unread" />
-			</form>';
-		} else {
-			$html .= '<input type="submit" class="whiteButton" onclick="javascript:document.location = \'/\'" value="No Unread Posts" />';
+		if($showNextUnread) {
+			if($nextUnreadPostId) {
+				$api = new GpAPI();
+				$unreadCount = $api->PostCountUnread();
+				$html .= '
+				<form id="nextUnread" class="panel" action="/post.php" method="GET"> 
+					<input type="hidden" name="postid" value="'.$nextUnreadPostId.'" />
+					<input type="submit" style="background-color: red;" value="('.$unreadCount.') Next Unread" />
+				</form>';
+			}
+			else {
+				$html .= '<input type="submit" onclick="javascript:document.location = \'/\'" value="No Unread Posts" />';
+			}
 		}
 		$html .= '</div>';
 		return $html;

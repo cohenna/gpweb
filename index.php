@@ -50,25 +50,30 @@
 ?>
 <h2>Create a New Thread</h2> 
 <form id="postsubmit" class="panel" action="/postsubmit.php" method="POST" > 
-	<fieldset>
+	<table class="heading">
 <?php
 	if(!empty($_GET['e'])) {
 ?>
-	<div class="row"> 
-	<b><center><font color="red"><?php echo $_GET['e'] ?></font></center></b>
-	</div>
+	<tr>
+		<td align="center" colspan="2"><font color="red"><?php echo $_GET['e'] ?></font></td>
+	</tr>
 <?php } ?>
-		<div class="row"> 
-			<label>Subject</label> 
-			<input type="text" name="subject" value="<?php echo $subject; ?>" />
-			<!--<textarea rows="1" name="subject"><?php echo $subject; ?></textarea>-->
-		</div> 
-		<div class="row"> 
-			<label>Response</label> 
-			<textarea name="response"></textarea>
-		</div> 
-	</fieldset> 
-	<input type="submit" class="whiteButton" value="Submit" />
+		<tr> 
+			<th>Subject</th>
+		</tr> 
+		<tr>
+			<td><input type="text" name="subject" value="<?php echo $subject; ?>" /></td>
+		</tr>
+		<tr>
+			<th>Response</th>
+		</tr>
+		<tr>
+			<td><textarea rows="5" name="response" style="width:100%"></textarea></td>
+		</tr>
+		<tr>
+			<td><input type="submit" value="Submit" /></td>
+		</tr>
+	</table>
 </form> 
 <?php 
 	echo menu($menuSettings);
