@@ -21,7 +21,7 @@
 				}
 				$sp = strpos($t, $k);
 				if($sp !== FALSE
-					|| levenshtein($k, $t) <= 1
+					|| strlen($k) > 5 && levenshtein($k, $t) <= 2
 					) {
 					#echo "<b>strpos($t, $k) = ".$sp.'<BR>';
 					#echo "levenshtein($k, $t) = ".levenshtein($k, $t).'<BR></b>';
