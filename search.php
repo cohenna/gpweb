@@ -40,6 +40,9 @@
 		return FALSE;
 	}
 	$searchString = $_GET['q'];
+	if(empty($searchString)) {
+		rickroll('/');
+	}
 	$keywords = explode(' ', strtolower($searchString));
 	$api = new GpAPI();
 	$posts = $api->Posts();
@@ -70,6 +73,7 @@
 </head>
 <body>
 <div class="panel" selected="true">
+<h2><?php echo sizeof($postmatches);?> results for <?php echo $searchString; ?></h2>
 <?php
 	$settings = array(
 		'showIndent' => FALSE, 
