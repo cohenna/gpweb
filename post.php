@@ -65,6 +65,15 @@
 <body>
 <div class="panel" selected="true">
 
+<?php
+	$nextUnreadPostId = $api->PostNextUnreadID($post['ThreadID']);
+	$menuSettings = array(
+		'nextUnreadPostId' => $nextUnreadPostId, 
+		'returnToBoard' => FALSE, 
+		'search' => FALSE,
+	);
+	echo menu($menuSettings);
+?>
 
 <?php if(!empty($parent)) { ?>
 <input id="parentToggle" type="button" value="Show Previous Message" onclick="javascript:toggleDiv('parent', 'parentToggle', 'Show Previous Message', 'Hide Previous Message')" />
@@ -92,15 +101,7 @@
 </table>
 </div>
 <?php } ?>
-<?php
-	$nextUnreadPostId = $api->PostNextUnreadID($post['ThreadID']);
-	$menuSettings = array(
-		'nextUnreadPostId' => $nextUnreadPostId, 
-		'returnToBoard' => FALSE, 
-		'search' => FALSE,
-	);
-	echo menu($menuSettings);
-?>
+
 <div class="heading">
 <table>
 	<tr>
@@ -124,8 +125,6 @@
 	
 
 <input id="responseToggle" type="button" value="Respond to Post" onclick="javascript:toggleDiv('response', 'responseToggle', 'Respond to Post', 'Hide Respond to Post')" />
-<input id="threadToggle" type="button" value="<?php echo $threadToggleValue; ?>" onclick="javascript:toggleDiv('thread', 'threadToggle', 'Show Thread', 'Hide Thread')" />
-
 <div id="response" style="display:none; margin-left: 0; padding-left: 0; border: 1px solid #999999;">
 <form id="postsubmit" class="panel" action="/postsubmit.php" method="POST" > 
 	<table class="heading">
@@ -156,6 +155,7 @@
 </form> 
 </div>
 
+<input id="threadToggle" type="button" value="<?php echo $threadToggleValue; ?>" onclick="javascript:toggleDiv('thread', 'threadToggle', 'Show Thread', 'Hide Thread')" />
 <div id="thread" style="display:<?php echo $threadDisplay; ?>; margin-left: 0; padding-left: 0; border: 1px solid #999999;">
 <?php
 	$settings = array(
