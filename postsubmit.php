@@ -4,6 +4,7 @@
 	
 	
 	$postid = $_POST['postid'];
+	$tid = array_safe_get('tid', $_POST, '');
 	$response = $_POST['response'];
 	$subject = $_POST['subject'];
 	if(!logged_in() || empty($response) || empty($subject)) {
@@ -14,11 +15,13 @@
 	$api = new GpAPI();
 	$post = $api->PostAdd($postid, $subject, $response);
 	
-	if($post) {
-		redirect('/post.php?postid='.$post);
+	$url = '/post.php?postid='.$post;
+	if(!$post) {
+		$url .= '&e=problem';
 	}
-	else {
-		redirect('/post.php?postid='.$postid.'&e=problem');
+	if(!empty($tid)) {
+		$url .= '&tid='.$tid;
 	}
+	rickroll($url);
 	
 ?>

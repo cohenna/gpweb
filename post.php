@@ -8,7 +8,7 @@
 		return;
 	}
 	
-	$threadID = array_safe_get('tid', $_GET, 0);
+	$threadID = array_safe_get('tid', $_REQUEST, 0);
 	if($threadID > 0) {
 		$threadToggleValue = 'Hide Thread';
 		$threadDisplay = 'block';
@@ -20,7 +20,6 @@
 	
 	$api = new GpAPI();
 	$post = $api->PostGet($postid);
-	$threadId = 0;
 	#echo var_export($post, TRUE).'<BR>';
 	#$threadId = $post[
 	
@@ -69,7 +68,7 @@
 	$nextUnreadPostId = $api->PostNextUnreadID($post['ThreadID']);
 	$menuSettings = array(
 		'nextUnreadPostId' => $nextUnreadPostId, 
-		'returnToBoard' => FALSE, 
+		//'returnToBoard' => FALSE, 
 		'search' => FALSE,
 	);
 	echo menu($menuSettings);
@@ -152,6 +151,7 @@
 		</tr>
 	</table>
 	<input type="hidden" name="postid" value="<?php echo $postid; ?>" />
+	<input type="hidden" name="tid" value="<?php echo $post['ThreadID']; ?>" />
 </form> 
 </div>
 
