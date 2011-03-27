@@ -2,10 +2,20 @@
 	require_once 'util.php';
 	require_once 'gp-api.php';
 	
-	$postid = $_GET['postid'];
+	$postid = array_safe_get('postid', $_GET, '');
 	if(empty($postid) || !logged_in()) {
 		rickroll('/');
 		return;
+	}
+	
+	$threadID = array_safe_get('tid', $_GET, 0);
+	if($threadID > 0) {
+		$threadToggleValue = 'Hide Thread';
+		$threadDisplay = 'block';
+	}
+	else {
+		$threadToggleValue = 'Show Thread';
+		$threadDisplay = 'none';
 	}
 	
 	$api = new GpAPI();
@@ -56,15 +66,6 @@
 <div class="panel" selected="true">
 
 
-<input id="threadToggle" type="button" value="Show Thread" onclick="javascript:toggleDiv('thread', 'threadToggle', 'Show Thread', 'Hide Thread')" />
-<div id="thread" style="display:none; margin-left: 0; padding-left: 0; border: 1px solid #999999;">
-<?php
-	$settings = array(
-		'currentPostId' => $postid,
-	);
-	echo display_posts($threadPosts, $settings);
-?>
-</div>
 <?php if(!empty($parent)) { ?>
 <input id="parentToggle" type="button" value="Show Previous Message" onclick="javascript:toggleDiv('parent', 'parentToggle', 'Show Previous Message', 'Hide Previous Message')" />
 <div id="parent" class="parent" style="display:none; border: 1px solid #999999;">
@@ -96,7 +97,7 @@
 	$menuSettings = array(
 		'nextUnreadPostId' => $nextUnreadPostId, 
 		'returnToBoard' => FALSE, 
-		'search' => FALSE
+		'search' => FALSE,
 	);
 	echo menu($menuSettings);
 ?>
@@ -123,6 +124,8 @@
 	
 
 <input id="responseToggle" type="button" value="Respond to Post" onclick="javascript:toggleDiv('response', 'responseToggle', 'Respond to Post', 'Hide Respond to Post')" />
+<input id="threadToggle" type="button" value="<?php echo $threadToggleValue; ?>" onclick="javascript:toggleDiv('thread', 'threadToggle', 'Show Thread', 'Hide Thread')" />
+
 <div id="response" style="display:none; margin-left: 0; padding-left: 0; border: 1px solid #999999;">
 <form id="postsubmit" class="panel" action="/postsubmit.php" method="POST" > 
 	<table class="heading">
@@ -151,6 +154,16 @@
 	</table>
 	<input type="hidden" name="postid" value="<?php echo $postid; ?>" />
 </form> 
+</div>
+
+<div id="thread" style="display:<?php echo $threadDisplay; ?>; margin-left: 0; padding-left: 0; border: 1px solid #999999;">
+<?php
+	$settings = array(
+		'currentPostId' => $postid,
+		'threadIDInQueryString' => TRUE,
+	);
+	echo display_posts($threadPosts, $settings);
+?>
 </div>
 
 <?php

@@ -172,6 +172,8 @@
 		$searchKeywords = array();
 		$currentPostId = 0;
 		
+		$threadIDInQueryString = array_safe_get('threadIDInQueryString', $settings, FALSE);
+		
 		if(array_key_exists('currentPostId', $settings)) {
 			$currentPostId = $settings['currentPostId'];
 		}
@@ -212,6 +214,9 @@
 			$url = "/post.php?postid=$postID";
 			if(!empty($searchString)) {
 				$url .= '&q='.$searchString;
+			}
+			if($threadIDInQueryString) {
+				$url .= '&tid='.$post['ThreadID'];
 			}
 			if(!empty($currentPostId) && $postID == $currentPostId) {
 				$style = 'list-style: none;background-color: Lightgrey;';
