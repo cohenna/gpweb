@@ -274,4 +274,9 @@
 		echo "
 			</ul>";
 	}
+	
+	function pretty_pretty($text) {
+		$text = preg_replace('/\n/', '<BR>', $text);
+		return $text;
+	}
 ?>

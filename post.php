@@ -119,7 +119,7 @@
 </table>
 <div class="post">
 <?php
-	echo preg_replace('/\n/', '<BR>', $post['Description']);
+	echo pretty_pretty($post['Description']);
 ?>
 </div>
 	
@@ -168,7 +168,7 @@
 
 <?php
 	$menuSettings = array(
-		'showNextUnread' => FALSE, 
+		'nextUnreadPostId' => $nextUnreadPostId, 
 		'returnToBoard' => TRUE,
 	);
 	if(!empty($_GET['q'])) {
