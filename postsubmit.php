@@ -8,7 +8,7 @@
 	$response = $_POST['response'];
 	$subject = $_POST['subject'];
 	if(!logged_in() || empty($response) || empty($subject)) {
-		redirect('/');
+		rickroll('/');
 		return;
 	}
 	

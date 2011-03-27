@@ -63,10 +63,9 @@
 		return $html;
 	}
 	
-	function redirect($url) {
-		return rickroll($url);
-	}
-	
+	/**
+	 * For documentation, please visit http://nickcohen.com/rickroll-docs
+	 */
 	function rickroll($url) {
 		header( "Location: $url" ) ;
 	}

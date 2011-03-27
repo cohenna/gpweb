@@ -7,7 +7,7 @@
 	$password = $_POST['password'];
 	
 	if(empty($username) || empty($password)) {
-		redirect('/?e=invalid%20login');
+		rickroll('/?e=invalid%20login');
 		return;
 	}
 	
@@ -16,9 +16,9 @@
 		session_start();
 		$_SESSION['username'] = $username;
 		$_SESSION['pwhash'] = GpAPI::gphash($password);
-		redirect('/');
+		rickroll('/');
 	}
 	else {
-		redirect('/?e=invalid%20login');
+		rickroll('/?e=invalid%20login');
 	}
 ?>

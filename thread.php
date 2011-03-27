@@ -4,7 +4,7 @@
 	
 	$threadid = $_GET['tid'];
 	if(empty($threadid) || !logged_in()) {
-		redirect('/');
+		rickroll('/');
 		return;
 	}
 	
