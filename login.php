@@ -15,6 +15,7 @@
 	if($result == 1) {
 		session_start();
 		$_SESSION['username'] = $username;
+		$_SESSION['user'] = $api->UserGet($username, $password);
 		$_SESSION['pwhash'] = GpAPI::gphash($password);
 		rickroll('/');
 	}

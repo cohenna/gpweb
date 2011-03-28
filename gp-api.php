@@ -15,6 +15,8 @@
 			return $result;
 		}
 		
+		
+		
 		public function __construct($baseurl = GpAPI::DEFAULT_API, $format='json') {
 			$this->baseurl = $baseurl;
 			$cert_file=null;//Path to cert file 
@@ -33,17 +35,14 @@
 		
 		public function Authenticate($username, $password) {
 			$hashedpw = GpAPI::gphash($password);
-			
-			
 			$url = $this->baseurl."Authenticate?UserName=$username&Password=$hashedpw&format=".$this->format;
-			$this->restclient->getWebRequest($url);
-			if($this->restclient->getStatusCode() == 200) {
-				return json_decode($this->restclient->getWebResponse(), TRUE);
-			}
-			else {
-				$this->handleError($this->restclient->getStatusCode());
-			}
-			return null;
+			return $this->__handle_url($url);
+		}
+		
+		public function UserGet($username, $password) {
+			$hashedpw = GpAPI::gphash($password);
+			$url = $this->baseurl."UserGet?UserName=$username&Password=$hashedpw&format=".$this->format;
+			return $this->__handle_url($url);
 		}
 		
 		private function __handle_url($url) {

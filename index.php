@@ -8,9 +8,19 @@
 <head>
 	<title>Greenpride Mobile</title>
 	<?php echo head_links(); ?>
+	<script language="javascript">
+	$(document).ready(function() {
+		$("p").text("The DOM is now loaded and can be manipulated.");
+		$('#newThreadButton').click(function() {
+			$('html, body').animate({
+				scrollTop: $("#newThreadDiv").offset().top
+			}, 500);
+			return false;
+		});
+	});
+	</script>
 </head>
 <body>
-
 <?php
 	if(!logged_in()) {
 ?>
@@ -42,12 +52,13 @@
 	$nextUnreadPostId = $api->PostNextUnreadID();
 ?>
 <div class="panel" selected="true">
-
+<input id="newThreadButton" value="New Thread" style="" type="button" />
 <?php
 	$menuSettings = array('nextUnreadPostId' => $nextUnreadPostId, 'returnToBoard' => FALSE);
 	echo menu($menuSettings);
 	display_posts($posts);
 ?>
+<div id="newThreadDiv">
 <h2>Create a New Thread</h2> 
 <form id="postsubmit" class="panel" action="/postsubmit.php" method="POST" > 
 	<table class="heading">
@@ -74,7 +85,8 @@
 			<td><input type="submit" value="Submit" /></td>
 		</tr>
 	</table>
-</form> 
+</form>
+</div>
 <?php 
 	echo menu($menuSettings);
 ?>
@@ -83,5 +95,6 @@
 } ?>
 
 <?php echo footer(); ?>
+
 </body>
 </html>

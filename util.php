@@ -5,7 +5,7 @@
 	session_start();
 	
 	function logged_in() {
-		return !empty($_SESSION['username']);
+		return !empty($_SESSION['user']);
 	}
 	
 	function array_safe_get($key, $array, $default) {
@@ -140,6 +140,7 @@
 			<link rel="stylesheet" href="/css/gp.css"  type="text/css"/>
 			<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 			<script language="javascript" src="/js/jquery-1.5.1.min.js"></script>
+			<script language="javascript" src="/js/jquery.scrollTo-1.4.2-min.js"></script>
 			';
 	}
 	
@@ -223,8 +224,13 @@
 			else {
 				$style = 'list-style: none;';
 			}
+			$user = array_safe_get('user', $_SESSION, null);
+			$authorStyle = '';
+			if(!empty($user) && array_safe_get('UserID', $user, 0) == $post['AuthorID']) {
+				$authorStyle = 'color: purple;';
+			}
 			echo "<li style=\"$style\"><a style=\"margin-left:{$indent}px;\" class=\"$class\" href=\"$url\">";
-			echo "<span>$prefix <u>$subject</u></span> $date <i>$author</i></a></li>
+			echo "<span>$prefix <u>$subject</u></span> <span style=\"$authorStyle\">$date <i>$author</i></a></span></li>
 				";
 		}
 		echo "
