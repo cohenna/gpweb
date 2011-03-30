@@ -22,6 +22,7 @@
 		$search = array_safe_get('search', $menuSettings, TRUE);
 		$backToSearchResults = array_safe_get('backToSearchResults', $menuSettings, FALSE);
 		$searchString = array_safe_get('searchString', $menuSettings, '');
+		$showStats = array_safe_get('showStats', $menuSettings, FALSE);
 		
 		$html = '<div class="menu">';
 		
@@ -59,6 +60,11 @@
 				$html .= '<input type="submit" onclick="javascript:document.location = \'/\'" value="No Unread Posts" />';
 			}
 		}
+		
+		if($showStats) {
+			$html .= '<input type="Button" onclick="javascript:document.location = \'/stats.php\';" value="NG Stats" />';
+		}
+		
 		$html .= '</div>';
 		return $html;
 	}

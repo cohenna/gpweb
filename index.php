@@ -95,6 +95,7 @@
 
 
 <?php 
+	$menuSettings['showStats'] = TRUE;
 	echo menu($menuSettings);
 ?>
 </div>

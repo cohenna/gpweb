@@ -32,4 +32,15 @@ div {
 
 .heading table,th,td,tr {
 	text-align: left;
+	padding: 10px 10px 10px 10px;
 }
+
+.heading table {
+	border-style:solid;
+	border-width:2px;
+}
+
+.heading .odd td {
+	background-color: lightgray;
+}
+

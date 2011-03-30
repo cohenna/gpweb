@@ -159,6 +159,7 @@
 		$menuSettings['searchString'] = $_GET['q'];
 		$menuSettings['backToSearchResults'] = TRUE;
 	}
+	$menuSettings['showStats'] = TRUE;
 	echo menu($menuSettings);
 ?>
 <!--
