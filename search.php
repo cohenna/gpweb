@@ -96,5 +96,6 @@
 	echo menu($menuSettings);
 ?>
 </div>
+<?php echo footer(); ?>
 </body>
 </html>
