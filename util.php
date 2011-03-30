@@ -141,6 +141,7 @@
 			<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 			<script language="javascript" src="/js/jquery-1.5.1.min.js"></script>
 			<script language="javascript" src="/js/jquery.scrollTo-1.4.2-min.js"></script>
+			<script language="javascript" src="/js/gplabs.js"></script>
 			';
 	}
 	

@@ -1,6 +1,41 @@
 <?php
 	require_once 'util.php'; // does a session_start
 	require_once 'gp-api.php';
+	
+	function newthread() {
+		$html = '';
+		$html .= '
+			<h2>Create a New Thread</h2> 
+			<form class="panel" action="/postsubmit.php" method="POST" > 
+			<table class="heading">';
+		if(!empty($_GET['e'])) {
+			$html .= '
+				<tr>
+					<td align="center" colspan="2"><font color="red">'.$_GET['e'].'</font></td>
+				</tr>';
+		}
+		
+		$html .= '
+				<tr> 
+					<th>Subject</th>
+				</tr> 
+				<tr>
+					<td><input type="text" name="subject" value="" /></td>
+				</tr>
+				<tr>
+					<th>Response</th>
+				</tr>
+				<tr>
+					<td><textarea rows="5" name="response" style="width:100%"></textarea></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Submit" /></td>
+				</tr>
+			</table>
+		</form>';
+		return $html;
+	}
+	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -8,19 +43,11 @@
 <head>
 	<title>Greenpride Mobile</title>
 	<?php echo head_links(); ?>
-	<script language="javascript">
-	$(document).ready(function() {
-		$("p").text("The DOM is now loaded and can be manipulated.");
-		$('#newThreadButton').click(function() {
-			$('html, body').animate({
-				scrollTop: $("#newThreadDiv").offset().top
-			}, 500);
-			return false;
-		});
-	});
-	</script>
 </head>
 <body>
+<?php
+	
+?>
 <?php
 	if(!logged_in()) {
 ?>
@@ -52,41 +79,21 @@
 	$nextUnreadPostId = $api->PostNextUnreadID();
 ?>
 <div class="panel" selected="true">
-<input id="newThreadButton" value="New Thread" style="" type="button" />
+<input id="newThreadToggle" type="button" value="New Thread" onclick="javascript:toggleDiv('newThread', 'newThreadToggle', 'New Thread', 'Hide New Thread')" />
+<div id="newThread" style="display:none;">
+<?php
+	echo newthread();
+?>
+</div>
 <?php
 	$menuSettings = array('nextUnreadPostId' => $nextUnreadPostId, 'returnToBoard' => FALSE);
 	echo menu($menuSettings);
 	display_posts($posts);
+	echo newthread();
 ?>
-<div id="newThreadDiv">
-<h2>Create a New Thread</h2> 
-<form id="postsubmit" class="panel" action="/postsubmit.php" method="POST" > 
-	<table class="heading">
-<?php
-	if(!empty($_GET['e'])) {
-?>
-	<tr>
-		<td align="center" colspan="2"><font color="red"><?php echo $_GET['e'] ?></font></td>
-	</tr>
-<?php } ?>
-		<tr> 
-			<th>Subject</th>
-		</tr> 
-		<tr>
-			<td><input type="text" name="subject" value="<?php echo $subject; ?>" /></td>
-		</tr>
-		<tr>
-			<th>Response</th>
-		</tr>
-		<tr>
-			<td><textarea rows="5" name="response" style="width:100%"></textarea></td>
-		</tr>
-		<tr>
-			<td><input type="submit" value="Submit" /></td>
-		</tr>
-	</table>
-</form>
-</div>
+
+
+
 <?php 
 	echo menu($menuSettings);
 ?>
