@@ -7,7 +7,7 @@
 	$tid = array_safe_get('tid', $_POST, '');
 	$response = $_POST['response'];
 	$subject = $_POST['subject'];
-	if(!logged_in() || empty($response) || empty($subject)) {
+	if(!logged_in() || empty($subject)) {
 		rickroll('/');
 		return;
 	}
