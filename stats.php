@@ -36,13 +36,22 @@
 	echo '</tr>';
 	$i = 1;
 	foreach($postsbyuser as $user=>$num_posts) {
+		$currentUser = $_SESSION['user']['FullName'] === $user;
+		if($currentUser) {
+			$user = '<b><font color="purple">'.$user.'</font></b>';
+			$i_display = '<b><font color="purple">'.$i.'</font></b>';
+			$num_posts = '<b><font color="purple">'.$num_posts.'</font></b>';
+		}
+		else {
+			$i_display = $i;
+		}
 		if($i & 1) {
 			echo '<tr class="odd">';
 		}
 		else {
 			echo '<tr>';
 		}
-		echo '<td>'.$i.'</td>';
+		echo '<td>'.$i_display.'</td>';
 		echo '<td>'.$user.'</td>';
 		echo '<td>'.$num_posts.'</td>';
 		echo '</tr>';
