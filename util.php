@@ -8,6 +8,13 @@
 		return !empty($_SESSION['user']);
 	}
 	
+	function base64_pad($b64_digest) {
+		while (strlen($b64_digest) % 4) {
+			$b64_digest .= '=';
+		}
+		return $b64_digest;
+	}
+	
 	function array_safe_get($key, $array, $default) {
 		if(array_key_exists($key, $array)) {
 			return $array[$key];
@@ -23,6 +30,7 @@
 		$backToSearchResults = array_safe_get('backToSearchResults', $menuSettings, FALSE);
 		$searchString = array_safe_get('searchString', $menuSettings, '');
 		$showStats = array_safe_get('showStats', $menuSettings, FALSE);
+		$logout = array_safe_get('logout', $menuSettings, FALSE);
 		
 		$html = '<div class="menu">';
 		
@@ -63,6 +71,10 @@
 		
 		if($showStats) {
 			$html .= '<input type="Button" onclick="javascript:document.location = \'/stats.php\';" value="NG Stats" />';
+		}
+		
+		if($logout) {
+			$html .= '<input type="Button" onclick="javascript:document.location = \'/logout.php\';" value="Logout" />';
 		}
 		
 		$html .= '</div>';
@@ -195,6 +207,7 @@
 		}
 		echo "
 			<ul style=\"margin-left:0;padding-left:0;\" id=\"home\" title=\"Threads\" selected=\"true\">";
+		
 		foreach($posts as $post) {
 			$subject = $post['Subject'];
 			$postID = $post['PostID'];

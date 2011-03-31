@@ -10,12 +10,8 @@
 		const DEFAULT_API = 'https://api.greenpride.com/Service.svc/';
 		
 		public static function gphash($str) {
-			$command = PERL.' '.PERL_LIB.'/sha512_base64.pl '.$str;
-			$result = exec($command);
-			return $result;
+			return urlencode(base64_pad(base64_encode(hash('sha512', utf8_encode($str), 1))));
 		}
-		
-		
 		
 		public function __construct($baseurl = GpAPI::DEFAULT_API, $format='json') {
 			$this->baseurl = $baseurl;
@@ -31,6 +27,12 @@
 		
 		public function handleError($code) {
 			echo 'Error: '.$code.'<BR>';
+		}
+		
+		public function Hash($string) {
+			$string = urlencode($string);
+			$url = $this->baseurl."Hash?format=".$this->format."&Value=$string&URLEncode=True";
+			return $this->__handle_url($url);
 		}
 		
 		public function Authenticate($username, $password) {

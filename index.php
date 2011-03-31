@@ -96,6 +96,7 @@
 
 <?php 
 	$menuSettings['showStats'] = TRUE;
+	$menuSettings['logout'] = TRUE;
 	echo menu($menuSettings);
 ?>
 </div>
