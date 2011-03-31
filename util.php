@@ -5,7 +5,13 @@
 	session_start();
 	
 	function logged_in() {
-		return !empty($_SESSION['user']);
+		$api = new GpAPI();
+		$_SESSION['user'] = $api->UserGet($_SESSION['username'], $_SESSION['pwhash'], TRUE);
+		if(!empty($_SESSION['user']) && $_SESSION['user']['Authenticated']) {
+			return TRUE;
+		}
+		session_destroy();
+		return FALSE;
 	}
 	
 	function base64_pad($b64_digest) {

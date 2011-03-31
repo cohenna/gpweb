@@ -35,14 +35,14 @@
 			return $this->__handle_url($url);
 		}
 		
-		public function Authenticate($username, $password) {
-			$hashedpw = GpAPI::gphash($password);
+		public function Authenticate($username, $password, $alreadyHashed=FALSE) {
+			$hashedpw = $alreadyHashed ? $password : GpAPI::gphash($password);
 			$url = $this->baseurl."Authenticate?UserName=$username&Password=$hashedpw&format=".$this->format;
 			return $this->__handle_url($url);
 		}
 		
-		public function UserGet($username, $password) {
-			$hashedpw = GpAPI::gphash($password);
+		public function UserGet($username, $password, $alreadyHashed=FALSE) {
+			$hashedpw = $alreadyHashed ? $password : GpAPI::gphash($password);
 			$url = $this->baseurl."UserGet?UserName=$username&Password=$hashedpw&format=".$this->format;
 			return $this->__handle_url($url);
 		}
