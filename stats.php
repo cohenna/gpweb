@@ -1,12 +1,9 @@
 <?php
 	require_once 'util.php'; // does a session_start
+	require_once 'gp-api.php';
 	if(!logged_in()) {
 		rickroll('/login.php');
-	}
-	
-	
-	require_once 'gp-api.php';
-	
+	}	
 	
 	$api = new GpAPI();
 	$posts = $api->Posts();
