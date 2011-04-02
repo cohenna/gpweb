@@ -236,6 +236,9 @@
 				$prefix = '';
 			}
 			$class = $read ? 'whiteButton' : 'redButton';
+			if($author === 'Jeff Gordon') {
+				$author = 'F A Gordon';
+			}
 			$author = get_initals($author);
 			$url = "/post.php?postid=$postID";
 			if(!empty($searchString)) {
