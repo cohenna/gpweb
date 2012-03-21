@@ -308,7 +308,8 @@
 	
 	function pretty_pretty($text) {
 		$text = preg_replace('/\n/', '<BR>', $text);
-		$text = preg_replace('/https?:\/\/[^\s<]+/i', '<a target="_blank" href="\0">\0</a>', $text);
+		//$text = preg_replace('/https?:\/\/[^\s<]+/i', '<a target="_blank" href="\0">\0</a>', $text);
+		//$text = preg_replace('/((?!href=).*)https?:\/\/[^\s<]+/i', '<a target="_blank" href="\0">\0</a>', $text);
 		return $text;
 	}
 ?>
