@@ -3,8 +3,8 @@
 	require_once 'util.php';
 	
 	$api = new GpAPI();
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+	$username = trim($_POST['username']);
+	$password = trim($_POST['password']);
 	
 	if(empty($username) || empty($password)) {
 		rickroll('/?e=invalid%20login');
