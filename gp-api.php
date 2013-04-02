@@ -7,7 +7,7 @@
 		private $restclient = null;
 		private $format = null;
 		
-		const DEFAULT_API = 'https://api.greenpride.com/Service.svc/';
+		const DEFAULT_API = 'http://api.greenpride.com/Service.svc/';
 		
 		public static function gphash($str) {
 			return urlencode(base64_pad(base64_encode(hash('sha512', utf8_encode($str), 1))));
